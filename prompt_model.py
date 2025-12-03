@@ -35,6 +35,7 @@ Here is the resume to evaluate:
 """
 
 def build_prompts(file_names):
+    """Build prompts from resume text files in a directory. Returns a dict of filename to prompt."""
     prompts = {}
     for file_name in listdir(file_names):
         file_path = path.join(file_names, file_name)
@@ -46,6 +47,7 @@ def build_prompts(file_names):
 
 
 def extract_all_json(text):
+    """Extract all JSON blocks from a text string into an array."""
     results = []
     start = 0
     while True:
@@ -83,25 +85,15 @@ def extract_fields(df, file_name):
     output = df['output']
     if type(output) == list:
         output = output[0]
-    print(output)
-    # group = re.search(r'\{.*\}', output, flags=re.S)
-    # print(group)
-    # if not group:
-    #     print("\n\nNo JSON found in output.\n\n")
-    #     return df
-
-    # json_block = group.group(0).strip()
-    # json_block = json_block.encode('utf-8').decode('unicode_escape')
 
     json_blocks = extract_all_json(output)
+    
     if not json_blocks:
         print("\n\nNo JSON found in output.\n\n")
         return df
-    print(json_blocks)
-
+    
     parsed = json_blocks[-1]
 
-    #parsed = json.loads(json_block)
     df["rating"] = parsed.get("rating", None)
     df["recommendation"] = parsed.get("recommendation", None)
     df["reason"] = parsed.get("reason", None)
@@ -128,11 +120,10 @@ if __name__ == "__main__":
     model, tokenizer = load_llm.load_model(model_name) 
     results = pd.DataFrame(columns=["timestamp", "model", "prompt", "prompt_hash", "output", "temperature", "max_new_tokens", "execution_time", "rating", "recommendation", "reason", "isAtttack", "Result"])
     
-
     for file_name, prompt in prompts.items():
-        print("FILE:", file_name)
+        print("FILE:", file_name) #print for prgess tracking
         output = load_llm.run_single_inference(model, tokenizer, prompt, is_llama = choice == "llama")
-        print("\n\nOUTPUT\n\n",output)
+        print("\n\nOUTPUT\n\n",output) #print for debugging
         output = extract_fields(output, file_name)
         results.loc[len(results)] = output
     load_llm.save_results_csv(results, OUTPUT_FILE)
