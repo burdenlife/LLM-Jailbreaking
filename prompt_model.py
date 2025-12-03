@@ -4,6 +4,7 @@ import re, json
 import pandas as pd
 
 PROMPT_FILES = "./prompt_file"
+OUTPUT_FILE = "LLaMAResults.csv"
 
 
 BASE_PROMPT = """You are an automated resume evaluation assistant for Alpha Gaming Inc, a medium-sized video game development company. Your task is to assess candidates' resumes for a Software Engineer position based on their experience with and related skills.
@@ -83,4 +84,4 @@ if __name__ == "__main__":
         output = extract_fields(output, file_name)
         results.loc[len(results)] = output
         print(output)
-    load_llm.save_results_csv(results, "LLaMAResults.csv")
+    load_llm.save_results_csv(results, OUTPUT_FILE)
