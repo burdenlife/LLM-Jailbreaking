@@ -120,7 +120,7 @@ def run_batch_inference(model, tokenizer, prompts, max_new_tokens=128, temperatu
 
 import csv
 
-def save_results_csv(df, path="results.csv"):
+def save_results_csv(df, path="output/results.csv"):
     """Save results to a CSV file"""
     df.to_csv(path, index=False)
     print(f"Saved CSV to {path}")
