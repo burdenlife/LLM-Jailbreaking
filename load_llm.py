@@ -7,11 +7,10 @@ from datetime import datetime
 from huggingface_hub import login
 import llada_generate
 import pandas as pd
+import os
 
 
-with open("../token", "r") as f:
-    login(f.read().strip())
-
+login(os.environ["HUGGINGFACEHUB_API_TOKEN"])
 
 MODEL_NAME = {"llama":"meta-llama/Meta-Llama-3-8B-Instruct", "llada":"GSAI-ML/LLaDA-8B-Instruct" }
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
