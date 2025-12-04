@@ -1,5 +1,5 @@
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 import hashlib
 import json
 import time
@@ -32,7 +32,7 @@ def get_model_name() -> str:
             choice = "llada"
     
     return choice
-
+   
 def hash_prompt(prompt: str) -> str:
     return hashlib.sha256(prompt.encode()).hexdigest()
 
@@ -40,21 +40,39 @@ def load_model(model_name):
     print("Loading model...")
     print("model_name:", model_name)
     if model_name == MODEL_NAME["llada"]:
+        bnb_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_compute_dtype=torch.bfloat16,
+        bnb_4bit_use_double_quant=True,
+        bnb_4bit_quant_type="nf4",
+    )
+
         tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            torch_dtype="auto",
+            quantization_config=bnb_config,
             device_map="auto",
-            trust_remote_code=True
+            trust_remote_code=True,
         )
         model.config.use_cache = False
     else:
+        bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.bfloat16,
+            bnb_4bit_use_double_quant=True,
+            bnb_4bit_quant_type="nf4",
+        )
+         
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            torch_dtype=torch.bfloat16,
+            quantization_config=bnb_config,
+            dtype=torch.bfloat16,
             device_map="auto"
         )
+    #print("device map:", getattr(model, "hf_device_map", "no device map")) #debug
+
+    model.eval()
     return model, tokenizer
 
 def run_single_inference(model, tokenizer, prompt, max_new_tokens=128, temperature=0.7, is_llama=True):
@@ -87,7 +105,7 @@ def run_single_inference(model, tokenizer, prompt, max_new_tokens=128, temperatu
             model,
             input_ids,
             gen_length=max_new_tokens,
-            steps = max_new_tokens,
+            steps = max_new_tokens//2,
             temperature=temperature
         )
         
