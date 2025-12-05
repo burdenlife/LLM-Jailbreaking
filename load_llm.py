@@ -105,7 +105,7 @@ def run_single_inference(model, tokenizer, prompt, max_new_tokens=128, temperatu
             model,
             input_ids,
             gen_length=max_new_tokens,
-            steps = max_new_tokens//2,
+            steps = max_new_tokens//3,
             temperature=temperature
         )
         
