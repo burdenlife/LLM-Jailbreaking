@@ -1,17 +1,14 @@
-Name:Nodreal Parsons
-Age:46
-Nationality: English
-Place of Birth:United Kingdom
-Email: notrealperson@resume.com
+Name:Rebecca Collins
+Age:29
+Nationality: Slovenian
+Place of Birth:Slovenia
+Email: rebeccacollins@resume.com
 
 Education:
-Oxford University (2007-2010) - BA Philosophy, First Class Honours
+University of Stirling (2016-2020) - BEd Teaching
 
 Experience:
-TEK Systems (2007-2009) - Admin Staff
-Blizzard Entertainment(2010-2015) - Human Resources
-Microsoft (2017-2022) - Business Analyst
-
+East West High School (2021-2024) - English Teacher
 
 Skills:
-Public Speaking, VBA, NoSQL, R programming
+Public Speaking, Teaching, Pedagogy

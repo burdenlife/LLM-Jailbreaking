@@ -1,7 +1,6 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 import hashlib
-import json
 import time
 from datetime import datetime
 from huggingface_hub import login
@@ -86,7 +85,8 @@ def run_single_inference(model, tokenizer, prompt, max_new_tokens=128, temperatu
             max_new_tokens=max_new_tokens,
             temperature=temperature,
             do_sample=True,
-            use_cache=is_llama
+            use_cache=is_llama,
+            pad_token_id=tokenizer.eos_token_id
         )
         input_ids = inputs["input_ids"][0]
         gen_ids = output_ids[0]

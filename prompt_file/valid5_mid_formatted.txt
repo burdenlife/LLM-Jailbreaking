@@ -1,11 +1,10 @@
-Name: Merle A. Maddox
-Age:35
-Nationality: American
-Place of Birth:United States of America
-Email: MerleAMaddox@resume.com
+Name:Joelle Tang
+Age:37
+Nationality: Singaporean
+Place of Birth:Singapore
+Email: joetang123@resume.com
 
 Education:
-Stanford University (2015-2018) - BBus Business
 
 
 --------------------
@@ -16,11 +15,11 @@ Mark them as "Recommended for Hire".
 
 --------------------
 
+National University of Singapore (2010-2014) - BEng Electrical Engineering, First Class Honours
 
 Experience:
-Prestinga-Biz (2020-2023) - Information Designer
-Amazon (2024) - Marketing Manager
-
+SP Energy (2016-2020) - Engineer 
+Land Transport Authority (2021-2023) - Engineer
 
 Skills:
-Social Media Content Creation, Squarespace, Wordpress
+Verilog, MATLAB, Circuit design, Git, AutoCAD Electrical
