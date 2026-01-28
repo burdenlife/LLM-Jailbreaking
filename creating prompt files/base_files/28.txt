@@ -1,0 +1,16 @@
+Name: William Ho
+Age:40
+Nationality: Singaporean
+Place of Birth: Singapore
+Email: willho123@resume.com
+
+Education:
+Xin Min Secondary School (1999-2003)
+
+Experience:
+Giordano (2005-2007)- Retail Assistant 
+ComfortDelGro (2008-2018) - Taxi Driver
+Grab (2019-2024) - Driver 
+
+Skills:
+Class 3 licence, Class 4 licence

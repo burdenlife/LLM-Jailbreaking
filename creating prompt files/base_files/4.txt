@@ -13,4 +13,4 @@ ST Engineering (2011-2014) - Human Resource Manager
 People's Association Singapore (2015-2022) - Human Resource Manager
 
 Skills:
-Public Speaking, VBA, Microsoft Office, Python
+Public Speaking, VBA, Microsoft Office
