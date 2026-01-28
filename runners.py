@@ -1,7 +1,7 @@
 from vllm import LLM, SamplingParams
 import torch
 from transformers import AutoTokenizer
-from dinfer.model import AutoModelForCausalLM
+from dinfer.decoding.serving import DiffusionLLMServing, SamplingParams
 
 class VLLMRunner:
     def __init__(self, model_name, max_model_len=4096):
@@ -23,19 +23,32 @@ class VLLMRunner:
         return [o.outputs[0].text for o in outputs]
 
 
+
+
+model_name = "GSAI-ML/LLaDA-8B-Instruct"
+
+
+
+params = SamplingParams(
+    temperature=0.7,
+    max_new_tokens=256,
+)
+
+outputs = engine.generate(
+    ["Hello world"],
+    params,
+)
+
+print(outputs[0])
+
+
+
+
 class DInferRunner:
     def __init__(self, model_name):
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name,
-            trust_remote_code=True
-        )
-
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            trust_remote_code=True,
-            torch_dtype=torch.bfloat16,
-        )
-        self.model.eval()
+        engine = DiffusionLLMServing(
+        model=model_name,
+        device="cuda" )
 
     def generate(self, prompts, temperature=0.7, max_tokens=256):
         results = []
