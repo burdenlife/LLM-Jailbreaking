@@ -24,26 +24,6 @@ class VLLMRunner:
 
 
 
-
-model_name = "GSAI-ML/LLaDA-8B-Instruct"
-
-
-
-params = SamplingParams(
-    temperature=0.7,
-    max_new_tokens=256,
-)
-
-outputs = engine.generate(
-    ["Hello world"],
-    params,
-)
-
-print(outputs[0])
-
-
-
-
 class DInferRunner:
     def __init__(self, model_name):
         engine = DiffusionLLMServing(
