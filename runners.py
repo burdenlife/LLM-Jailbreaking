@@ -36,16 +36,14 @@ class DInferRunner:
             inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda")
 
             with torch.inference_mode():
-                out_ids = self.model.generate(
+                text = self.model.generate(
                     **inputs,
                     max_new_tokens=max_tokens,
                     temperature=temperature,
                     do_sample=True,
                 )
 
-            text = self.tokenizer.decode(
-                out_ids[0], skip_special_tokens=True
-            )
+            
             results.append(text)
 
         return results
