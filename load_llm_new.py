@@ -9,7 +9,7 @@ import pandas as pd
 import os
 
 
-login(os.environ["HUGGINGFACEHUB_API_TOKEN"])
+# login(os.environ["HUGGINGFACEHUB_API_TOKEN"])
 
 MODEL_NAME = {"llama":"meta-llama/Meta-Llama-3-8B-Instruct", "llada":"GSAI-ML/LLaDA-8B-Instruct" }
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
