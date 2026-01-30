@@ -8,7 +8,7 @@ class VLLMRunner:
         self.llm = LLM(
             model=model_name,
             max_model_len=max_model_len,
-            gpu_memory_utilization=0.7,
+            gpu_memory_utilization=0.6,
             trust_remote_code=True,
         )
 
