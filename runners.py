@@ -34,7 +34,7 @@ class DInferRunner:
         self.model = DiffusionLLMServing(model=model_name )
 
     def generate(self, prompts, temperature=0.7, max_tokens=256):
-        from dinfer.decoding.sampling_params import SamplingParams
+        from dinfer.decoding.serving import SamplingParams
         params = SamplingParams(
             temperature=temperature,
             max_new_tokens=max_tokens,
