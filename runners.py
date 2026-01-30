@@ -27,24 +27,15 @@ class VLLMRunner:
 
 class DInferRunner:
     def __init__(self, model_name):
-        engine = DiffusionLLMServing(
-        model=model_name )
+        self.model = DiffusionLLMServing(model=model_name )
 
     def generate(self, prompts, temperature=0.7, max_tokens=256):
-        results = []
 
-        for prompt in prompts:
-            inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda")
-
-            with torch.inference_mode():
-                text = self.model.generate(
-                    **inputs,
-                    max_new_tokens=max_tokens,
-                    temperature=temperature,
-                    do_sample=True,
-                )
-
-            
-            results.append(text)
+        params = SamplingParams(
+            temperature=temperature,
+            max_new_tokens=max_tokens,
+        )
+        with torch.inference_mode():
+            results = self.model.generate(prompts, params)
 
         return results
