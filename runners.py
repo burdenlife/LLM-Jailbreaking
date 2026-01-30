@@ -1,7 +1,7 @@
 from vllm import LLM
 import torch
 from transformers import AutoTokenizer
-from dinfer.decoding.serving import DiffusionLLMServing
+from dinfer.decoding.serving import SamplingParams as DInferSamplingParams
 
 class VLLMRunner:
     def __init__(self, model_name, max_model_len=1024):
@@ -34,8 +34,8 @@ class DInferRunner:
         self.model = DiffusionLLMServing(model=model_name )
 
     def generate(self, prompts, temperature=0.7, max_tokens=256):
-        from dinfer.decoding.serving import SamplingParams
-        params = SamplingParams(
+
+        params = DInferSamplingParams(
             temperature=temperature,
             max_new_tokens=max_tokens,
         )
