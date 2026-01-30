@@ -29,11 +29,18 @@ class VLLMRunner:
 
 
 
+import inspect
+
 class DInferRunner:
     def __init__(self, model_name):
         self.model = DiffusionLLMServing(model=model_name )
+        print("DInferSamplingParams module:", DInferSamplingParams.__module__)
+        print("DInferSamplingParams signature:", inspect.signature(DInferSamplingParams))
 
     def generate(self, prompts, temperature=0.7, max_tokens=256):
+
+
+        
 
         params = DInferSamplingParams(
             temperature=temperature,
