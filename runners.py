@@ -4,10 +4,11 @@ from transformers import AutoTokenizer
 from dinfer.decoding.serving import DiffusionLLMServing, SamplingParams
 
 class VLLMRunner:
-    def __init__(self, model_name, max_model_len=4096):
+    def __init__(self, model_name, max_model_len=2048):
         self.llm = LLM(
             model=model_name,
             max_model_len=max_model_len,
+            gpu_memory_utilization=0.7,
             trust_remote_code=True,
         )
 
