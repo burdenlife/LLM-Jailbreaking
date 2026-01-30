@@ -4,7 +4,7 @@ from transformers import AutoTokenizer
 from dinfer.decoding.serving import DiffusionLLMServing, SamplingParams
 
 class VLLMRunner:
-    def __init__(self, model_name, max_model_len=1280):
+    def __init__(self, model_name, max_model_len=1024):
         self.llm = LLM(
             model=model_name,
             max_model_len=max_model_len,
@@ -33,7 +33,7 @@ class DInferRunner:
 
         params = SamplingParams(
             temperature=temperature,
-            max_new_tokens=max_tokens,
+            max_tokens=max_tokens,
         )
         with torch.inference_mode():
             results = self.model.generate(prompts, params)
