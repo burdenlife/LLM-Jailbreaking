@@ -40,13 +40,14 @@ class DInferRunner:
         )
         self.model = DiffusionLLMServing(model=model_name)
 
-    def generate(self, prompts, temperature=0.7, max_tokens=256):
+    def generate(self, prompts, temperature=0.7, max_tokens=128):
         # 1️⃣ tokenize → tensor
         enc = self.tokenizer(
             prompts,
             return_tensors="pt",
             padding=True,
             truncation=True,
+            max_length=1024,
         )
 
         input_ids = enc["input_ids"].to("cuda")
