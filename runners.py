@@ -2,7 +2,7 @@ from vllm import LLM
 import torch
 from transformers import AutoTokenizer
 from dinfer.decoding.serving import SamplingParams as DInferSamplingParams
-
+from dinfer.decoding.serving import DiffusionLLMServing
 class VLLMRunner:
     def __init__(self, model_name, max_model_len=1024):
         self.llm = LLM(
