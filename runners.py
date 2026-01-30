@@ -34,9 +34,7 @@ import inspect
 class DInferRunner:
     def __init__(self, model_name):
         self.model = DiffusionLLMServing(model=model_name )
-        print("DInferSamplingParams module:", DInferSamplingParams.__module__)
-        print("DInferSamplingParams signature:", inspect.signature(DInferSamplingParams))
-
+        
     def generate(self, prompts, temperature=0.7, max_tokens=256):
 
 
@@ -44,7 +42,7 @@ class DInferRunner:
 
         params = DInferSamplingParams(
             temperature=temperature,
-            max_new_tokens=max_tokens,
+            max_length=max_tokens,
         )
         with torch.inference_mode():
             results = self.model.generate(prompts, params)
