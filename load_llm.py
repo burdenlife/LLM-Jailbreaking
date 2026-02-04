@@ -124,17 +124,91 @@ def run_single_inference(model, tokenizer, prompt, max_new_tokens=128, temperatu
     return result
 
 
-def run_batch_inference(model, tokenizer, prompts, max_new_tokens=128, temperature=0.7):
-    """Send a batch of prompts to the model and return output with metadata"""
+def run_batch_inference(model, tokenizer, prompts, max_new_tokens=128, temperature=0.7, is_llama=True):
+    if is_llama:
+        return run_llama_inference(model, tokenizer, prompts, max_new_tokens=max_new_tokens, temperature=temperature)
+    
+    else:
+        return run_llada_inference(model, tokenizer, prompts, max_new_tokens=max_new_tokens, temperature=temperature)
+
+
+
+@torch.inference_mode()
+def run_llama_inference(model, tokenizer, prompts, *, max_new_tokens=128, temperature=0.7):
+    tok = tokenizer(
+        prompts,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+    )
+    input_ids = tok["input_ids"].to(model.device)
+    attention_mask = tok.get("attention_mask", None)
+    if attention_mask is not None:
+        attention_mask = attention_mask.to(model.device)
+
+    output_ids = model.generate(
+        input_ids=input_ids,
+        attention_mask=attention_mask,
+        max_new_tokens=max_new_tokens,
+        temperature=temperature,
+        do_sample=True,
+        use_cache=True,
+        pad_token_id=tokenizer.eos_token_id,
+    )
+    prompt_lens = tok["attention_mask"].sum(dim=1).tolist() if "attention_mask" in tok else [input_ids.size(1)] * input_ids.size(0)
+
     results = []
-    for prompt in prompts:
-        result = run_single_inference(
-            model, tokenizer, prompt,
-            max_new_tokens=max_new_tokens,
-            temperature=temperature
-        )
-        results.append(result)
+    for i in range(output_ids.size(0)):
+        gen_ids = output_ids[i, prompt_lens[i]:]
+        results.append(tokenizer.decode(gen_ids, skip_special_tokens=True))
     return results
+
+
+
+
+
+@torch.inference_mode()
+def run_llada_inference(model, tokenizer, prompts, *, max_new_tokens=128, temperature=0.7):
+    tok = tokenizer(
+        prompts,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+    )
+    input_ids = tok["input_ids"].to(model.device)
+    attention_mask = tok.get("attention_mask", None)
+    if attention_mask is not None:
+        attention_mask = attention_mask.to(model.device)
+
+    output_ids = llada_generate.generate(
+        model,
+        input_ids,
+        gen_length=max_new_tokens,
+        steps=16,
+        temperature=temperature,
+        cfg_scale=0.0,
+        attention_mask=attention_mask,  
+    )
+    prompt_lens = tok["attention_mask"].sum(dim=1).tolist() if "attention_mask" in tok else [input_ids.size(1)] * input_ids.size(0)
+
+    results = []
+    for i in range(output_ids.size(0)):
+        gen_ids = output_ids[i, prompt_lens[i]:]
+        results.append(tokenizer.decode(gen_ids, skip_special_tokens=True))
+    return results
+
+
+# def run_batch_inference(model, tokenizer, prompts, max_new_tokens=128, temperature=0.7):
+#     """Send a batch of prompts to the model and return output with metadata"""
+#     results = []
+#     for prompt in prompts:
+#         result = run_single_inference(
+#             model, tokenizer, prompt,
+#             max_new_tokens=max_new_tokens,
+#             temperature=temperature
+#         )
+#         results.append(result)
+#     return results
 
 import csv
 
