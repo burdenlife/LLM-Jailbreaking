@@ -4,7 +4,7 @@ from load_llm import run_batch_inference, hash_prompt, save_results_csv, get_mod
 
 
 from os import path, listdir
-import re, json
+import json
 import pandas as pd
 
 PROMPT_FILES = "./test"
