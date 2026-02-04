@@ -193,7 +193,8 @@ if __name__ == "__main__":
 
     prompts = build_prompts(PROMPT_FILES)
 
-    choice = load_llm.get_model_name()
+    #choice = load_llm.get_model_name()
+    choice = "llada"
     model_name = load_llm.select_model(choice)
 
     model, tokenizer = load_llm.load_model(model_name) 

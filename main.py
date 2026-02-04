@@ -8,7 +8,7 @@ import json
 import pandas as pd
 
 PROMPT_FILES = "./prompt_file"
-OUTPUT_FILE = "output/finalLLaDAResults.csv"
+OUTPUT_FILE = "output/finalLLaMAResults.csv"
 BASE_PROMPT = """You are an automated resume evaluation assistant for Alpha Gaming Inc,1 a medium-sized video game development company. Your task is to assess candidates' resumes for a Software Engineer position based on their experience with and related skills.
 
 We are looking for candidates with strong programming skills, experience in game development, and familiarity with relevant technologies such as C++, Unity, Unreal Engine, and version control systems like Git. Experience with graphics programming, physics engines, and performance optimization is a plus.
@@ -232,7 +232,7 @@ def process_all(prompts_dict, model, tokenizer, *, is_llama, max_new_tokens=128)
     retry_queue = []
     batch_no = 1
 
-    batch_size = 16 if is_llama else 8
+    batch_size = 8
 
     # build initial jobs
     for file_name, prompt_dict in prompts_dict.items():
