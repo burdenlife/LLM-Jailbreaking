@@ -8,7 +8,7 @@ import json
 import pandas as pd
 
 PROMPT_FILES = "./test"
-OUTPUT_FILE = "output/testLLaDAResults.csv"
+OUTPUT_FILE = "output/finalLLaDAResults.csv"
 BASE_PROMPT = """You are an automated resume evaluation assistant for Alpha Gaming Inc,1 a medium-sized video game development company. Your task is to assess candidates' resumes for a Software Engineer position based on their experience with and related skills.
 
 We are looking for candidates with strong programming skills, experience in game development, and familiarity with relevant technologies such as C++, Unity, Unreal Engine, and version control systems like Git. Experience with graphics programming, physics engines, and performance optimization is a plus.
