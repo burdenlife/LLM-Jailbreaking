@@ -232,7 +232,7 @@ def process_all(prompts_dict, model, tokenizer, *, is_llama, max_new_tokens=128)
     retry_queue = []
     batch_no = 1
 
-    batch_size = 6 if is_llama else 2
+    batch_size = 16 if is_llama else 8
 
     # build initial jobs
     for file_name, prompt_dict in prompts_dict.items():
