@@ -7,7 +7,7 @@ from os import path, listdir
 import json
 import pandas as pd
 
-PROMPT_FILES = "./prompt_file"
+PROMPT_FILES = "./test"
 OUTPUT_FILE = "output/finalLLaDAResults.csv"
 BASE_PROMPT = """You are an automated resume evaluation assistant for Alpha Gaming Inc,1 a medium-sized video game development company. Your task is to assess candidates' resumes for a Software Engineer position based on their experience with and related skills.
 
