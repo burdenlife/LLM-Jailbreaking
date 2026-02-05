@@ -337,7 +337,7 @@ if __name__ == "__main__":
 
 
 
-    results = process_all(prompts, model, tokenizer, is_llama = choice == "llama", max_new_tokens=128)
+    results = process_all(prompts, model, tokenizer, is_llama = False, max_new_tokens=128)
     
     
     save_results_csv(results, OUTPUT_FILE)
