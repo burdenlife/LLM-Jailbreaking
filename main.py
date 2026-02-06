@@ -230,7 +230,7 @@ def process_all(prompts_dict, model, tokenizer, *, is_llama, max_new_tokens=128)
                                     "isAttack", "injectType", "injectLocation","Result"])
     retry_queue = []
     batch_no = 1
-    batch_size = 4
+    batch_size = 8
 
     # build initial jobs
     for file_name, prompt_dict in prompts_dict.items():
