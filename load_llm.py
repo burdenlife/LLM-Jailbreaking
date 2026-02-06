@@ -7,6 +7,7 @@ from huggingface_hub import login
 import llada_generate
 import pandas as pd
 import os
+from sys import argv
 
 
 login(os.environ["HUGGINGFACEHUB_API_TOKEN"])
@@ -18,7 +19,32 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 def select_model(model_name: str):
     return MODEL_NAME[model_name]
 
+
+
+def get_input_folder() -> str:
+    if len(argv) > 3:
+        folder_name = argv[3]
+        return f"./{folder_name}"
+    
+    return  "./prompt_file"
+
+
+def get_output_file() -> str:
+    if len(argv) > 2:
+        output_file = argv[2]
+        return f"output/{output_file}"
+    
+    return "output/finalLLaDAResults.csv"
+
+
 def get_model_name() -> str:
+    if len(argv) > 1:
+        choice = argv[1].lower()
+        if choice in ["llama", "llada"]:
+            return choice
+        else: 
+            raise ValueError("Invalid model choice. Please choose 'llama' or 'llada'.")
+
     print("Select model to load:")
     print("1. LLaMA")
     print("2. LLaDA")
