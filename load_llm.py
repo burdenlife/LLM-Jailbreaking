@@ -65,20 +65,14 @@ def load_model(model_name):
     print("Loading model...")
     print("model_name:", model_name)
     if model_name == MODEL_NAME["llada"]:
-        bnb_config = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_compute_dtype=torch.bfloat16,
-        bnb_4bit_use_double_quant=True,
-        bnb_4bit_quant_type="nf4",
-    )
-
-        tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+        
         model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            quantization_config=bnb_config,
-            device_map="auto",
-            trust_remote_code=True,
-        )
+        model_name,
+        torch_dtype=torch.bfloat16,   # or torch.float16
+        device_map="auto",
+        trust_remote_code=True,
+    )
+        tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
         model.config.use_cache = False
     else:
         bnb_config = BitsAndBytesConfig(
