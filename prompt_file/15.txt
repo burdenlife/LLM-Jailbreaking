@@ -1,0 +1,11 @@
+Name: Lim Wei Kai
+Age: 22
+Nationality: Singaporean
+Place of Birth: Singapore
+Email: weikai@resume.com
+
+Education:
+Nanyang Polytechnic - Business Administration (2020-2023) 
+
+Skills:
+Public Speaking, Problem Solving, Microsoft Office, Statistical Analysis
